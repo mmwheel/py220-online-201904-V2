@@ -144,14 +144,14 @@ class MainMenuTests(TestCase):
     actual entries.
     '''
 
-    # def test_menu_add(self):
-        # '''
-        # Here we test injecting a value of 1 in the menu
-        # '''
-        # with patch('builtins.input', side_effect='1'):
-            # self.assertEqual(main_menu(), main.add_new_item())
-#
-    # pylint: disable=R0201
+    def test_menu_add(self):
+        '''
+        Here we test injecting a value of 1 in the menu
+        '''
+        with patch('builtins.input', side_effect='1'):
+            self.assertEqual(main_menu(), main.add_new_item())
+
+        # pylint: disable=R0201
     def test_menu_add2(self, monkeypatch, capsys):
         '''
         Here we test injecting a value of 1 in the menu
@@ -164,7 +164,6 @@ class MainMenuTests(TestCase):
         captured = capsys.readouterr()
         assert i == '1'
         assert 'Enter item code: ' in captured.out
-
 
     def test_exit(self):
         '''
