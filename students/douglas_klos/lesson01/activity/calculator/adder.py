@@ -1,5 +1,5 @@
-class Adder(object):
+class Adder():
 
     @staticmethod
     def calc(operand_1, operand_2):
-        return operand_1 + operand_2
+        return operand_2 + operand_1
