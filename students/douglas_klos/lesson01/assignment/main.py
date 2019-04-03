@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
 """ HP Norton Inventory Management """
 
 import sys
-import market_prices
-import inventoryClass
-import furnitureClass
-import electricAppliancesClass
+from inventory_management import inventory_class, furniture_class, electric_appliances_class, market_prices
+# from inventory_management import market_prices
+# from inventory_management.inventory_class import Inventory
+# from inventory_management import furniture_class
+# from inventory_management import electric_appliances_class
 
 
 def main_menu(user_prompt=None):
@@ -43,22 +45,22 @@ def add_new_item():
     if is_furniture.lower() == "y":
         item_material = input("Enter item material: ")
         item_size = input("Enter item size (S,M,L,XL): ")
-        new_item = furnitureClass.furniture(item_code, item_description,
-                                            item_price, item_rental_price,
-                                            item_material, item_size)
+        new_item = furniture_class.Furniture(item_code, item_description,
+                                             item_price, item_rental_price,
+                                             item_material, item_size)
     else:
         is_electric_appliance = \
             input("Is this item an electric appliance? (Y/N): ")
         if is_electric_appliance.lower() == "y":
             item_brand = input("Enter item brand: ")
             item_voltage = input("Enter item voltage: ")
-            new_item = electricAppliancesClass.electricAppliances(
+            new_item = electric_appliances_class.ElectricAppliances(
                 item_code, item_description, item_price,
                 item_rental_price, item_brand, item_voltage)
         else:
-            new_item = inventoryClass.inventory(
+            new_item = inventory_class.Inventory(
                 item_code, item_description, item_price, item_rental_price)
-    FULL_INVENTORY[item_code] = new_item.returnAsDictionary()
+    FULL_INVENTORY[item_code] = new_item.return_as_dictionary()
     print("New inventory item added")
 
 
