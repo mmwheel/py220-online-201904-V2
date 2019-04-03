@@ -29,9 +29,11 @@ class ElectricAppliancesTest(TestCase):
     '''
     Testing electric_appliances addition to dict.
     '''
-    def test_return_as_dict(self):
+    def test_electric_dict(self):
         '''
-        In this we will be making sure that output_dict functions correctly.
+        In this we will be making sure that output_dict functions correctly for
+        inventory queries.  We do this by injecting dict input and then
+        asserting that it exists when queried.
         '''
         electric_test = electric_appliances. \
             ElectricAppliances('12345', 'Testing', '123.45', '12.34',
@@ -55,9 +57,11 @@ class HomeFurnatureTests(TestCase):
     '''
     Testing electric_appliances addition to dict.
     '''
-    def test_return_as_dict(self):
+    def test_furnature_dict(self):
         '''
-        In this we will be making sure that output_dict functions correctly.
+        In this we will be making sure that output_dict functions correctly for
+        inventory queries.  We do this by injecting dict input and then
+        asserting that it exists when queried.  As above.
         '''
         furnature_test = home_furniture. \
             FurnitureClass('12345', 'Testing', '123.45', '12.34',
@@ -69,3 +73,51 @@ class HomeFurnatureTests(TestCase):
                                                'rental_price': '12.34',
                                                'material': 'Fur',
                                                'size': '123'})
+
+
+###############################################################################
+#
+# And now, store_inventory.py
+#
+###############################################################################
+
+
+class InventoryTests(TestCase):
+    '''
+    Testing store_inventory.py
+    '''
+    def test_inventory_dict(self):
+        '''
+        In this we will be making sure that output_dict functions correctly for
+        inventory queries.  We do this by injecting dict input and then
+        asserting that it exists when queried.  As above.
+        '''
+        inventory_test = store_inventory. \
+            Inventory('12345', 'Testing', '123.45', '12.34')
+        furnature_dict_test = inventory_test.return_as_dict()
+        self.assertEqual(furnature_dict_test, {'product_code': '12345',
+                                               'description': 'Testing',
+                                               'market_price': '123.45',
+                                               'rental_price': '12.34'})
+
+
+###############################################################################
+#
+# I guess we can test market_prices, but I'm not sure of the point since it
+# just returns '24' no matter what.
+#
+###############################################################################
+
+
+class MarketPricesTests(TestCase):
+    '''
+    So, this will be easy.  Basically just asserting that it's '24' and not
+    anything else.
+    '''
+    def test_market_price(self):
+        '''
+        As stated above.  I'm injecting a value that I know will be overwritten
+        by '24'
+        '''
+        prices = market_prices.get_latest_price('123')
+        self.assertEqual(prices, 24)

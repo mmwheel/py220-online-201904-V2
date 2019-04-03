@@ -3,7 +3,7 @@
 Launches the user interface for the Inventory management system
 '''
 import sys
-import market_prices
+from market_prices import get_latest_price
 from store_inventory import Inventory
 from home_furniture import FurnitureClass
 from electric_appliances import ElectricAppliances
@@ -37,7 +37,7 @@ def get_price(item_code):
     Prints "Get Price", otherwise doesn't seem to do anything...
     '''
     # print("Get price")
-    latest_price = market_prices.get_latest_price(item_code)
+    latest_price = get_latest_price(item_code)
     return latest_price
 
 
@@ -51,7 +51,7 @@ def add_new_item():
     item_rental_price = input("Enter item rental price: ")
 
     # Get price from the market prices module
-    item_price = market_prices.get_latest_price(item_code)
+    item_price = get_latest_price(item_code)
 
     is_furniture = input("Is this item a piece of furniture? (Y/N): ")
     if is_furniture.lower() == "y":
