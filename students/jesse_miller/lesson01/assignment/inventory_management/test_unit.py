@@ -4,12 +4,13 @@ Testing methods for first lesson in Python220
 '''
 # import sys
 from unittest import TestCase
-from unittest.mock import Mock, MagicMock
+from unittest.mock import patch # ,Mock, MagicMock
 import pytest
 import electric_appliances
 import home_furniture
 import store_inventory
 import market_prices
+import main
 from main import main_menu
 # sys.path.append('/Users/jmiller/School/Python_220/students/jesse_miller/\
 #                lesson01/assignment/')
@@ -121,3 +122,27 @@ class MarketPricesTests(TestCase):
         '''
         prices = market_prices.get_latest_price('123')
         self.assertEqual(prices, 24)
+
+
+
+###############################################################################
+#
+# So, here's where it'll get complicated.  The main_menu tests are going to be
+# the brunt of the testing since that's where all the interaction is.  I've
+# never been to clear on input testing, but here goes.
+#
+###############################################################################
+
+
+class MainMenuTests(TestCase):
+    '''
+    There's a lot going on here, basically we're going to be testing user
+    input through and through.  Both injecting values from input, and mocking
+    actual entries.
+    '''
+    def test_menu_add(self):
+        '''
+        Here we test injecting a value of 1 in the menu
+        '''
+        with patch('builtins.input', side_effect='1'):
+            self.assertEqual(main_menu(), main.add_new_item())
