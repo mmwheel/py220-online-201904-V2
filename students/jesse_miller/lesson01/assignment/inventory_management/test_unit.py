@@ -4,7 +4,7 @@ Testing methods for first lesson in Python220
 '''
 # import sys
 from unittest import TestCase
-from unittest.mock import patch # ,Mock, MagicMock
+from unittest.mock import patch, MagicMock  # ,Mock
 import pytest
 import electric_appliances
 import home_furniture
@@ -30,6 +30,7 @@ class ElectricAppliancesTest(TestCase):
     '''
     Testing electric_appliances addition to dict.
     '''
+
     def test_electric_dict(self):
         '''
         In this we will be making sure that output_dict functions correctly for
@@ -58,6 +59,7 @@ class HomeFurnatureTests(TestCase):
     '''
     Testing electric_appliances addition to dict.
     '''
+
     def test_furnature_dict(self):
         '''
         In this we will be making sure that output_dict functions correctly for
@@ -87,6 +89,7 @@ class InventoryTests(TestCase):
     '''
     Testing store_inventory.py
     '''
+
     def test_inventory_dict(self):
         '''
         In this we will be making sure that output_dict functions correctly for
@@ -115,6 +118,7 @@ class MarketPricesTests(TestCase):
     So, this will be easy.  Basically just asserting that it's '24' and not
     anything else.
     '''
+
     def test_market_price(self):
         '''
         As stated above.  I'm injecting a value that I know will be overwritten
@@ -122,7 +126,6 @@ class MarketPricesTests(TestCase):
         '''
         prices = market_prices.get_latest_price('123')
         self.assertEqual(prices, 24)
-
 
 
 ###############################################################################
@@ -140,9 +143,40 @@ class MainMenuTests(TestCase):
     input through and through.  Both injecting values from input, and mocking
     actual entries.
     '''
-    def test_menu_add(self):
+
+    # def test_menu_add(self):
+        # '''
+        # Here we test injecting a value of 1 in the menu
+        # '''
+        # with patch('builtins.input', side_effect='1'):
+            # self.assertEqual(main_menu(), main.add_new_item())
+#
+    # pylint: disable=R0201
+    def test_menu_add2(self, monkeypatch, capsys):
         '''
         Here we test injecting a value of 1 in the menu
         '''
-        with patch('builtins.input', side_effect='1'):
-            self.assertEqual(main_menu(), main.add_new_item())
+        def mock_input(prompt):
+            print(prompt)
+            return '1'
+        monkeypatch.setattr('builtins.input', mock_input)
+        i = input('1. Add a new item to the Inventory')
+        captured = capsys.readouterr()
+        assert i == '1'
+        assert 'Enter item code: ' in captured.out
+
+
+    def test_exit(self):
+        '''
+        Testing the exit function for clean exiting of program.
+        '''
+        with self.assertRaises(SystemExit):
+            main.exit_program()
+
+    def test_get_latest_price(self):
+        '''
+        Testing pricing return
+        '''
+        # pylint: disable=W0201
+        self.get_price = MagicMock(return_value=24)
+        self.assertEqual(24, main.get_price(1))
