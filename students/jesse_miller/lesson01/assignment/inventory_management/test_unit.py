@@ -144,6 +144,30 @@ class MainMenuTests(TestCase):
     actual entries.
     '''
 
+    dict_test_inv = {'product_code': '12345',
+                     'description': 'Testing',
+                     'market_price': '123.45',
+                     'rental_price': '12.34'}
+
+    dict_test_elec = {'product_code': '12345',
+                      'description': 'Testing',
+                      'market_price': '123.45',
+                      'rental_price': '12.34',
+                      'brand': 'Testing Inc',
+                      'voltage': '123.4'}
+
+    dict_test_furn = {'product_code': '12345',
+                      'description': 'Testing',
+                      'market_price': '123.45',
+                      'rental_price': '12.34',
+                      'material': 'Fur',
+                      'size': '123'}
+    '''
+    These dicts exist to test dictionary manipulation isolated from everything
+    aside from main.py   Essentially I want to make certain that main.py
+    returns the right values.
+    '''
+
     def test_menu_add(self):
         '''
         Here we test injecting a value of 1 in the menu
@@ -151,26 +175,21 @@ class MainMenuTests(TestCase):
         while True:
             try:
                 with patch('builtins.input', side_effect='1'):
-                    self.assertEqual(main_menu(), main.add_new_item())
+                    self.assertEqual(main_menu(), main.\
+                    add_new_item())
             except StopIteration as error_code:
                 return error_code
 
-    # pylint: disable=R0201
-    # def test_menu_add2(self, monkeypatch, capsys):
-        # '''
-        # Here we test injecting a value of 1 in the menu
-        # '''
-        # def mock_input(prompt):
-            # print(prompt)
-            # return '1'
-        # monkeypatch.setattr('builtins.input', mock_input)
-        # i = input('1. Add a new item to the Inventory')
-        # captured = capsys.readouterr()
-        # assert i == '1'
-        # assert 'Enter item code: ' in captured.out
-#
-
-    def
+    @patch('main.add_new_item', return_value=dict_test_inv)
+    def test_dict_elec(self, add_new_item):
+        '''
+        Testing adding a new item inside main.
+        '''
+        dict_inv = {'product_code': '12345',
+                    'description': 'Testing',
+                    'market_price': '123.45',
+                    'rental_price': '12.34'}
+        self.assertEqual(add_new_item(), dict_inv)
 
     def test_exit(self):
         '''
