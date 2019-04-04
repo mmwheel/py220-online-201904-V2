@@ -169,6 +169,9 @@ class MainMenuTests(TestCase):
         # assert i == '1'
         # assert 'Enter item code: ' in captured.out
 #
+
+    def
+
     def test_exit(self):
         '''
         Testing the exit function for clean exiting of program.
