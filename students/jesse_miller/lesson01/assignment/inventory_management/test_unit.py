@@ -181,7 +181,7 @@ class MainMenuTests(TestCase):
                 return error_code
 
     @patch('main.add_new_item', return_value=dict_test_inv)
-    def test_dict_elec(self, add_new_item):
+    def test_dict_main(self, add_new_item):
         '''
         Testing adding a new item inside main.
         '''
@@ -199,6 +199,7 @@ class MainMenuTests(TestCase):
         Testing adding a new electric item inside main.
         '''
         main.is_furniture = 'y'
+        main.is_electric_appliance = 'y'
         dict_elec = {'product_code': '12345',
                      'description': 'Testing',
                      'market_price': '123.45',
@@ -208,11 +209,11 @@ class MainMenuTests(TestCase):
         self.assertEqual(add_new_item(), dict_elec)
 
     @patch('main.add_new_item', return_value=dict_test_furn)
-    def test_dict_elec(self, add_new_item):
+    def test_dict_furn(self, add_new_item):
         '''
         Testing adding a new item inside main.
         '''
-        main.is_electric_appliance = 'y'
+        main.is_furniture = 'y'
         dict_furn = {'product_code': '12345',
                      'description': 'Testing',
                      'market_price': '123.45',
