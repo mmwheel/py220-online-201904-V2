@@ -145,12 +145,12 @@ class MainMenuTests(TestCase):
     actual entries.
     '''
 
-    dict_test_inv = {'product_code': '12345',
+    dict_test_inv = {'product_code': '123',
                      'description': 'Testing',
                      'market_price': '123.45',
                      'rental_price': '12.34'}
 
-    dict_test_elec = {'product_code': '12345',
+    dict_test_elec = {'product_code': '1234',
                       'description': 'Testing',
                       'market_price': '123.45',
                       'rental_price': '12.34',
@@ -231,11 +231,14 @@ class MainMenuTests(TestCase):
         '''
         Testing adding a new item inside main.
         '''
-        dict_inv = {'product_code': '12345',
+        dict_inv = {'product_code': '123',
                     'description': 'Testing',
                     'market_price': '123.45',
                     'rental_price': '12.34'}
         self.assertEqual(add_new_item(), dict_inv)
+
+        self.item_info = MagicMock(return_value=123)
+        self.assertEqual(123, main.item_info())
 
     # pylint: disable=E0102
     # Redefining is confusing, I get it, but this is a test
@@ -246,7 +249,7 @@ class MainMenuTests(TestCase):
         '''
         main.is_furniture = 'n'
         main.is_electric_appliance = 'y'
-        dict_elec = {'product_code': '12345',
+        dict_elec = {'product_code': '1234',
                      'description': 'Testing',
                      'market_price': '123.45',
                      'rental_price': '12.34',
