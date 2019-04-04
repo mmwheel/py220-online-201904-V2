@@ -1,4 +1,4 @@
-from .exceptions import InsufficientOperands
+from exceptions import InsufficientOperands
 
 class Calculator(object):
 
