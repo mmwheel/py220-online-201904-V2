@@ -4,7 +4,8 @@ Testing methods for first lesson in Python220
 '''
 # import sys
 from unittest import TestCase
-from unittest.mock import patch, MagicMock  # ,Mock
+from unittest.mock import patch, MagicMock
+from unittest import mock
 import pytest
 import electric_appliances
 import home_furniture
@@ -162,11 +163,24 @@ class MainMenuTests(TestCase):
                       'rental_price': '12.34',
                       'material': 'Fur',
                       'size': '123'}
+
+    dict_full_inv_test = {'product_code': '12345',
+                          'description': 'Testing',
+                          'market_price': '123.45',
+                          'rental_price': '12.34',
+                          'brand': 'Testing Inc',
+                          'voltage': '123.4'}
     '''
     These dicts exist to test dictionary manipulation isolated from everything
     aside from main.py   Essentially I want to make certain that main.py
     returns the right values.
     '''
+
+###############################################################################
+#
+# Testing the CLI
+#
+###############################################################################
 
     def test_menu_add(self):
         '''
@@ -175,10 +189,42 @@ class MainMenuTests(TestCase):
         while True:
             try:
                 with patch('builtins.input', side_effect='1'):
-                    self.assertEqual(main_menu(), main.\
-                    add_new_item())
+                    self.assertEqual(main_menu(), main.add_new_item())
             except StopIteration as error_code:
                 return error_code
+
+    def test_menu_info(self):
+        '''
+        Testing number 2
+        '''
+        while True:
+            try:
+                with patch('builtins.input', side_effect='2'):
+                    self.assertEqual(main_menu(), main.item_info())
+            except StopIteration as error_code:
+                return error_code
+
+    def test_menu_quit(self):
+        '''
+        Testing q
+        '''
+        # while True:
+            # try:
+                # with patch('builtins.input', side_effect='q'):
+                    # self.assertEqual(main_menu(), main.exit_program())
+            # except StopIteration as error_code:
+                # return error_code
+
+        with mock.patch('builtins.input', return_value='q'):
+            self.assertEqual(main_menu(), main.exit_program)
+
+        # Why does this work but not the other...
+
+###############################################################################
+#
+# Testing product entries
+#
+##############################################################################
 
     @patch('main.add_new_item', return_value=dict_test_inv)
     def test_dict_main(self, add_new_item):
@@ -198,7 +244,7 @@ class MainMenuTests(TestCase):
         '''
         Testing adding a new electric item inside main.
         '''
-        main.is_furniture = 'y'
+        main.is_furniture = 'n'
         main.is_electric_appliance = 'y'
         dict_elec = {'product_code': '12345',
                      'description': 'Testing',
@@ -221,6 +267,13 @@ class MainMenuTests(TestCase):
                      'material': 'Fur',
                      'size': '123'}
         self.assertEqual(add_new_item(), dict_furn)
+
+###############################################################################
+#
+# Testing ancillary functions
+#
+###############################################################################
+
 
     def test_exit(self):
         '''
