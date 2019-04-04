@@ -104,7 +104,7 @@ def test_init_appliance():
     product_dict['description'] = 'Oven'
     product_dict['market_price'] = 600
     product_dict['rental_price'] = 200
-    product_dict['brand'] = 'Topf and Sons'
+    product_dict['brand'] = 'Samsung'
     product_dict['voltage'] = 230
 
     oven = ElectricAppliances(**product_dict)
@@ -129,7 +129,7 @@ def test_return_as_dict_appliance():
     product_dict['description'] = 'Oven'
     product_dict['market_price'] = 600
     product_dict['rental_price'] = 200
-    product_dict['brand'] = 'Topf and Sons'
+    product_dict['brand'] = 'Samsung'
     product_dict['voltage'] = 230
 
     oven = ElectricAppliances(**product_dict)

@@ -100,7 +100,6 @@ class CalculatorTests(TestCase):
 
         self.multiplier.calc.assert_called_with(2, 3)
 
-    
     def test_divider_call(self):
         self.divider.calc = MagicMock(return_value=0)
 
