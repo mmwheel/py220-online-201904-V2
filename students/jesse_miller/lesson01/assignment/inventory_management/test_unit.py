@@ -191,6 +191,36 @@ class MainMenuTests(TestCase):
                     'rental_price': '12.34'}
         self.assertEqual(add_new_item(), dict_inv)
 
+    # pylint: disable=E0102
+    # Redefining is confusing, I get it, but this is a test
+    @patch('main.add_new_item', return_value=dict_test_elec)
+    def test_dict_elec(self, add_new_item):
+        '''
+        Testing adding a new electric item inside main.
+        '''
+        main.is_furniture = 'y'
+        dict_elec = {'product_code': '12345',
+                     'description': 'Testing',
+                     'market_price': '123.45',
+                     'rental_price': '12.34',
+                     'brand': 'Testing Inc',
+                     'voltage': '123.4'}
+        self.assertEqual(add_new_item(), dict_elec)
+
+    @patch('main.add_new_item', return_value=dict_test_furn)
+    def test_dict_elec(self, add_new_item):
+        '''
+        Testing adding a new item inside main.
+        '''
+        main.is_electric_appliance = 'y'
+        dict_furn = {'product_code': '12345',
+                     'description': 'Testing',
+                     'market_price': '123.45',
+                     'rental_price': '12.34',
+                     'material': 'Fur',
+                     'size': '123'}
+        self.assertEqual(add_new_item(), dict_furn)
+
     def test_exit(self):
         '''
         Testing the exit function for clean exiting of program.
