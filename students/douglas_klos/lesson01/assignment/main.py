@@ -2,11 +2,10 @@
 """ HP Norton Inventory Management """
 
 import sys
-from inventory_management import inventory_class, furniture_class, electric_appliances_class, market_prices
-# from inventory_management import market_prices
-# from inventory_management.inventory_class import Inventory
-# from inventory_management import furniture_class
-# from inventory_management import electric_appliances_class
+from inventory_management import market_prices
+from inventory_management import inventory_class
+from inventory_management import furniture_class
+from inventory_management import electric_appliances_class
 
 
 def main_menu(user_prompt=None):
@@ -27,8 +26,8 @@ def main_menu(user_prompt=None):
 
 
 def get_price(item_code):
-    """ A very useless function at the moment """
-    print(f'Get price : {item_code}')
+    """ Calls market_price.get_latest_price and returns value """
+    return market_prices.get_latest_price(item_code)
 
 
 def add_new_item():
@@ -37,9 +36,7 @@ def add_new_item():
     item_code = input("Enter item code: ")
     item_description = input("Enter item description: ")
     item_rental_price = input("Enter item rental price: ")
-
-    # Get price from the market prices module
-    item_price = market_prices.get_latest_price(item_code)
+    item_price = get_price(item_code)
 
     is_furniture = input("Is this item a piece of furniture? (Y/N): ")
     if is_furniture.lower() == "y":
