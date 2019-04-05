@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Unittest cases for inventory management classes """
+"""Unittest cases for inventory management classes"""
 
 # Douglas Klos
 # April 4th, 2019
@@ -28,7 +28,7 @@ from main import FULL_INVENTORY
 
 @contextmanager
 def captured_output():
-    """ Context manager to capture stdout for analysis """
+    """Context manager to capture stdout for analysis"""
     new_out = StringIO()
     old_out = sys.stdout
     try:
@@ -39,12 +39,12 @@ def captured_output():
 
 
 class MainTests(TestCase):
-    """ Test cases for main.py """
+    """Test cases for main.py"""
 
     def test_main_menu(self):
-        """
-        Tests that main_menu accepts user input
+        """Tests that main_menu accepts user input
         and returns corrent function calls
+
         """
         self.assertEqual(main_menu('1'), add_new_item)
         self.assertEqual(main_menu('2'), item_info)
@@ -57,7 +57,7 @@ class MainTests(TestCase):
             self.assertEqual(main_menu(), exit_program)
 
     def test_get_price(self):
-        """ Tests that get_price returns the expected, bad value """
+        """Tests that get_price returns the expected, bad value"""
         self.assertEqual(get_price(100), 100)
         self.assertEqual(get_price(1000), 1000)
         self.assertEqual(get_price(-100), -100)
@@ -69,7 +69,7 @@ class MainTests(TestCase):
            'market_prices.get_latest_price', return_value=388)
     @patch('inventory_management.inventory_class.Inventory')
     def test_new_item_inventory(self, mock_inventory, mock_price):
-        """ Tests adding a new item of type Inventory """
+        """Tests adding a new item of type Inventory"""
         product_code = 100
         description = 'Chair'
         market_price = 388
@@ -93,7 +93,7 @@ class MainTests(TestCase):
            'market_prices.get_latest_price', return_value=388)
     @patch('inventory_management.furniture_class.Furniture')
     def test_new_item_furniture(self, mock_furniture, mock_price):
-        """ Tests adding a new item of type Furniture """
+        """Tests adding a new item of type Furniture"""
         product_code = 100
         description = 'Chair'
         market_price = 388
@@ -121,7 +121,7 @@ class MainTests(TestCase):
            'market_prices.get_latest_price', return_value=388)
     @patch('inventory_management.electric_appliances_class.ElectricAppliances')
     def test_new_item_electric_app(self, mock_elec_app, mock_price):
-        """ Tests adding a new item of type ElectricAppliance """
+        """Tests adding a new item of type ElectricAppliance"""
         product_code = 100
         description = 'Oven'
         market_price = 388
@@ -146,7 +146,7 @@ class MainTests(TestCase):
                 self.assertIn(product_code, FULL_INVENTORY)
 
     def test_item_info(self):
-        """ Tests that item_info returns expected values """
+        """Tests that item_info returns expected values"""
         expected_return = (f'product_code:100\n'
                            f'description:Chair\n'
                            f'market_price:100\n'
@@ -171,13 +171,13 @@ class MainTests(TestCase):
         self.assertEqual(output, 'Item not found in inventory\n')
 
     def test_exit_program(self):
-        """ Tests that exit_program calls sys.exit() properly """
+        """Tests that exit_program calls sys.exit() properly"""
         with self.assertRaises(SystemExit):
             exit_program()
 
 
 class InventoryTests(TestCase):
-    """ Test cases for Inventory class """
+    """Test cases for Inventory class"""
 
     def setUp(self):
         self.product_dict = {}
@@ -188,7 +188,7 @@ class InventoryTests(TestCase):
         self.inventory = Inventory(**self.product_dict)
 
     def test_init(self):
-        """ Tests that inventory class initializes correctly """
+        """Tests that inventory class initializes correctly"""
         self.assertEqual(self.inventory.product_code,
                          self.product_dict['product_code'])
         self.assertEqual(self.inventory.description,
@@ -199,13 +199,13 @@ class InventoryTests(TestCase):
                          self.product_dict['rental_price'])
 
     def test_return_as_dictionary(self):
-        """ Tests that inventory class returns the expected dictionary """
+        """Tests that inventory class returns the expected dictionary"""
         self.assertEqual(self.product_dict,
                          self.inventory.return_as_dictionary())
 
 
 class FurnitureTests(TestCase):
-    """ Test cases for Furniture class """
+    """Test cases for Furniture class"""
 
     def setUp(self):
         self.product_dict = {}
@@ -218,7 +218,7 @@ class FurnitureTests(TestCase):
         self.chair = Furniture(**self.product_dict)
 
     def test_init(self):
-        """ Tests that furniture class initializes correctly """
+        """Tests that furniture class initializes correctly"""
         self.assertEqual(self.chair.product_code,
                          self.product_dict['product_code'])
         self.assertEqual(self.chair.description,
@@ -233,12 +233,12 @@ class FurnitureTests(TestCase):
                          self.product_dict['size'])
 
     def test_return_as_dictionary(self):
-        """ Tests that furniture class returns the expected dictionary """
+        """Tests that furniture class returns the expected dictionary"""
         self.assertEqual(self.product_dict, self.chair.return_as_dictionary())
 
 
 class ApplianceTest(TestCase):
-    """ Test cases for Electric Appliance class """
+    """Test cases for Electric Appliance class"""
 
     def setUp(self):
         self.product_dict = {}
@@ -251,7 +251,7 @@ class ApplianceTest(TestCase):
         self.oven = ElectricAppliances(**self.product_dict)
 
     def test_init(self):
-        """ Tests that electric appliance class initializes correctly """
+        """Tests that electric appliance class initializes correctly"""
         self.assertEqual(self.oven.product_code,
                          self.product_dict['product_code'])
         self.assertEqual(self.oven.description,
@@ -266,18 +266,18 @@ class ApplianceTest(TestCase):
                          self.product_dict['voltage'])
 
     def test_return_as_dictionary(self):
-        """ Tests that electric appliance returns the expected dictionary """
+        """Tests that electric appliance returns the expected dictionary"""
         self.assertEqual(self.product_dict, self.oven.return_as_dictionary())
 
 
 class MarketPricesTest(TestCase):
-    """ Test case for market_price.get_latest_price """
+    """Test case for market_price.get_latest_price"""
 
     def test_get_latest_price(self):
-        """
-        Tests that get latest price returns the expected value.
+        """Tests that get latest price returns the expected value.
         In this case, the expected value is what we pass in.
         The function is very broken.
+
         """
         self.assertEqual(get_latest_price(100), 100)
         self.assertEqual(get_latest_price(1000), 1000)

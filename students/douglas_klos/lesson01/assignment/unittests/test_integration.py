@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Unittest cases for integration testing """
+"""Unittest cases for integration testing"""
 
 # Douglas Klos
 # April 4th, 2019
@@ -21,13 +21,23 @@ from inventory_management.electric_appliances_class import ElectricAppliances
 
 
 class IntegrationTests(TestCase):
-    """ Integration tests for inventory_management """
+    """Integration tests for inventory_management
+
+    Attributes:
+        item_chair (dict) : dictionary for chair item
+        item_microwave (dict) : dictionary for microwave electric appliance
+        item_sofa (dict) : dictionary for sofa furniture
+        full_inventory (dict) : dictionary database of above items
+        inventory_string (str) : string containing all data in full_inventory
+
+    """
 
     def setUp(self):
         self.item_chair = {}
         self.item_microwave = {}
         self.item_sofa = {}
         self.full_inventory = {}
+        self.inventory_string = ''
 
         self.item_chair['product_code'] = 100
         self.item_chair['description'] = 'Chair'
@@ -54,17 +64,15 @@ class IntegrationTests(TestCase):
         self.full_inventory[self.item_sofa['product_code']] = \
             Furniture(**self.item_sofa).return_as_dictionary()
 
-        self.inventory_string = ''
-
         for item_code in self.full_inventory:
             for value in self.full_inventory[item_code].values():
                 self.inventory_string += f'{value}'
 
     def test_integration_chair(self):
-        """
-        Integration test for chair inventory
+        """Integration test for chair inventory
 
         Verifies that all chair related data is present.
+
         """
         self.assertIn(str(self.item_chair['product_code']),
                       self.inventory_string)
@@ -76,11 +84,11 @@ class IntegrationTests(TestCase):
                       self.inventory_string)
 
     def test_integration_microwave(self):
-        """
-        Integration test for microwave electrical applicance
+        """Integration test for microwave electrical applicance
 
         Verifies that all microwave related data is present.
-         """
+
+        """
         self.assertIn(str(self.item_microwave['product_code']),
                       self.inventory_string)
         self.assertIn(str(self.item_microwave['description']),
@@ -95,10 +103,10 @@ class IntegrationTests(TestCase):
                       self.inventory_string)
 
     def test_integration_sofa(self):
-        """
-        Integration test for soda furniture
+        """Integration test for soda furniture
 
         Verifies that all sofa related data is present.
+
         """
         self.assertIn(str(self.item_sofa['product_code']),
                       self.inventory_string)
@@ -114,12 +122,12 @@ class IntegrationTests(TestCase):
                       self.inventory_string)
 
     def test_full_string(self):
-        """
-        Integration test
+        """Integration test
 
         We build up a string of all the values in the database
         then we go through each expected value and remove it.
         If there's nothing left at the end then we pass
+
         """
         self.inventory_string = self.inventory_string.replace(
             str(self.item_chair['product_code']), '')

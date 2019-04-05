@@ -4,7 +4,13 @@ from .inventory_class import Inventory
 
 
 class ElectricAppliances(Inventory):
-    """ Electric Appliance class """
+    """Electric Appliances class, inerits from Inventory.
+
+    Attributes:
+        brand (str) : Brand of the electric appliance
+        voltage (int) : Voltage of the electric appliance
+
+    """
 
     def __init__(self, product_code, description,
                  market_price, rental_price, brand, voltage):
@@ -14,7 +20,12 @@ class ElectricAppliances(Inventory):
         self.voltage = voltage
 
     def return_as_dictionary(self):
-        """ Returns output_dict with contents of self. """
+        """Returns output_dict with contents of class attributes.
+
+        Returns:
+            dictionary containing the newly created item
+
+        """
         output_dict = super().return_as_dictionary()
         output_dict['brand'] = self.brand
         output_dict['voltage'] = self.voltage

@@ -1,4 +1,4 @@
-""" Pytest cases for inventory management classes """
+"""Pytest cases for inventory management classes"""
 
 # Douglas Klos
 # April 3rd, 2019
@@ -12,9 +12,7 @@ from inventory_management.market_prices import get_latest_price
 
 
 def test_init_inventory():
-    """
-    Tests that inventory class initializes correctly
-    """
+    """Tests that inventory class initializes correctly"""
     product_dict = {}
     product_dict['product_code'] = 100
     product_dict['description'] = 'Chair'
@@ -33,9 +31,7 @@ def test_init_inventory():
 
 
 def test_return_as_dict_inventory():
-    """
-    Tests that inventory class returns the expected dictionary
-    """
+    """Tests that inventory class returns the expected dictionary"""
     product_dict = {}
     product_dict['product_code'] = 100
     product_dict['description'] = 'Chair'
@@ -51,9 +47,7 @@ def test_return_as_dict_inventory():
 
 
 def test_init_furniture():
-    """
-    Tests that furniture class initializes correctly
-    """
+    """Tests that furniture class initializes correctly"""
     product_dict = {}
     product_dict['product_code'] = 100
     product_dict['description'] = 'Chair'
@@ -76,9 +70,7 @@ def test_init_furniture():
 
 
 def test_return_as_dict_furniture():
-    """
-    Tests that furniture class returns the expected dictionary
-    """
+    """Tests that furniture class returns the expected dictionary"""
     product_dict = {}
     product_dict['product_code'] = 100
     product_dict['description'] = 'Chair'
@@ -96,9 +88,7 @@ def test_return_as_dict_furniture():
 
 
 def test_init_appliance():
-    """
-    Tests that electric appliance class initializes correctly
-    """
+    """Tests that electric appliance class initializes correctly"""
     product_dict = {}
     product_dict['product_code'] = 8942
     product_dict['description'] = 'Oven'
@@ -121,9 +111,7 @@ def test_init_appliance():
 
 
 def test_return_as_dict_appliance():
-    """
-    Tests that electric appliance class returns the expected dictionary
-    """
+    """Tests that electric appliance class returns the expected dictionary"""
     product_dict = {}
     product_dict['product_code'] = 8942
     product_dict['description'] = 'Oven'
@@ -141,10 +129,11 @@ def test_return_as_dict_appliance():
 
 
 def test_get_latest_price_market():
-    """
-    Tests that get latest price returns the expected value.
+    """Tests that get latest price returns the expected value.
+
     In this case, the expected value is what we pass in.
-    The function is very broken.
+    We're testing a broken output yielding incorrect results.
+
     """
     assert get_latest_price(100) == 100
     assert get_latest_price(1000) == 1000

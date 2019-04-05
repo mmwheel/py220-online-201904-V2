@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" HP Norton Inventory Management """
+""" HP Norton Inventory Management UI """
 
 import sys
 from inventory_management import market_prices
@@ -11,7 +11,15 @@ FULL_INVENTORY = {}
 
 
 def main_menu(user_prompt=None):
-    """ Display the main menu of the UI """
+    """Display the main menu of the UI
+
+    Args:
+        user_prompt (str) : User input, defaults to None
+
+    Returns:
+        function call: Menu selection is called by calling function.
+
+    """
     valid_prompts = {"1": add_new_item,
                      "2": item_info,
                      "q": exit_program}
@@ -28,12 +36,28 @@ def main_menu(user_prompt=None):
 
 
 def get_price(item_code):
-    """ Calls market_price.get_latest_price and returns value """
+    """Calls market_price.get_latest_price and returns value
+
+    Args:
+        item_code (str) : Code of the item to fetch price for.
+
+    Returns:
+        int value returned from market_prices.get_latest_price
+
+    """
     return market_prices.get_latest_price(item_code)
 
 
 def add_new_item():
-    """ Add a new item to the inventory """
+    """Add a new item to the inventory
+
+    Note:
+        I dislike this function.  It operates on a global instead of an arg,
+        and returns nothing, instead printing to stdout.
+        I'd prefer it to accept a dict as an arg then return the new dict,
+        or raise an error if something goes wrong.
+
+    """
     item_code = input("Enter item code: ")
     item_description = input("Enter item description: ")
     item_rental_price = input("Enter item rental price: ")
@@ -68,7 +92,12 @@ def add_new_item():
 
 
 def item_info():
-    """ Display the item info for a given item code """
+    """Display the item info for a given item code
+
+    Note:
+        I'd prefer it to return a string instead of printing to stdout.
+
+    """
     # print(FULL_INVENTORY)
     item_code = input("Enter item code: ")
     if item_code in FULL_INVENTORY:
@@ -80,7 +109,7 @@ def item_info():
 
 
 def exit_program():
-    """ Exit the program """
+    """Exit the program"""
     sys.exit()
 
 
