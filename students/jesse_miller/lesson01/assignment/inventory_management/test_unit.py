@@ -237,39 +237,33 @@ class MainMenuTests(TestCase):
                     'rental_price': '12.34'}
         self.assertEqual(add_new_item(), dict_inv)
 
-        self.item_info = MagicMock(return_value=123)
-        self.assertEqual(123, main.item_info())
-
     # pylint: disable=E0102
     # Redefining is confusing, I get it, but this is a test
-    @patch('main.add_new_item', return_value=dict_test_elec)
-    def test_dict_elec(self, add_new_item):
+    @patch('main.add_new_electronics', return_value=dict_test_elec)
+    def test_dict_elec(self, add_new_electronics):
         '''
         Testing adding a new electric item inside main.
         '''
-        main.is_furniture = 'n'
-        main.is_electric_appliance = 'y'
         dict_elec = {'product_code': '1234',
                      'description': 'Testing',
                      'market_price': '123.45',
                      'rental_price': '12.34',
                      'brand': 'Testing Inc',
                      'voltage': '123.4'}
-        self.assertEqual(add_new_item(), dict_elec)
+        self.assertEqual(add_new_electronics(), dict_elec)
 
-    @patch('main.add_new_item', return_value=dict_test_furn)
-    def test_dict_furn(self, add_new_item):
+    @patch('main.add_new_furnature', return_value=dict_test_furn)
+    def test_dict_furn(self, add_new_furnature):
         '''
         Testing adding a new item inside main.
         '''
-        main.is_furniture = 'y'
         dict_furn = {'product_code': '12345',
                      'description': 'Testing',
                      'market_price': '123.45',
                      'rental_price': '12.34',
                      'material': 'Fur',
                      'size': '123'}
-        self.assertEqual(add_new_item(), dict_furn)
+        self.assertEqual(add_new_furnature(), dict_furn)
 
 ###############################################################################
 #
