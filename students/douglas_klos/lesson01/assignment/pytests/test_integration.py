@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-"""Unittest cases for integration testing"""
+#pylint: disable=W0201
+"""Pytest cases for integration testing"""
 
 # Douglas Klos
-# April 4th, 2019
+# April 5th, 2019
 # Python 220, Lesson 01
 # test_integration.py
-
-import unittest
-from unittest import TestCase
 
 from inventory_management.inventory_class import Inventory
 from inventory_management.furniture_class import Furniture
@@ -20,7 +18,7 @@ from inventory_management.electric_appliances_class import ElectricAppliances
 #   in a language that is all about readability.
 
 
-class IntegrationTests(TestCase):
+class TestClass():
     """Integration tests for inventory_management
 
     Attributes:
@@ -32,7 +30,8 @@ class IntegrationTests(TestCase):
 
     """
 
-    def setUp(self):
+    def setup_method(self):
+        """Initialize before each test method"""
         self.item_chair = {}
         self.item_microwave = {}
         self.item_sofa = {}
@@ -74,14 +73,10 @@ class IntegrationTests(TestCase):
         Verifies that all chair related data is present.
 
         """
-        self.assertIn(str(self.item_chair['product_code']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_chair['description']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_chair['market_price']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_chair['rental_price']),
-                      self.inventory_string)
+        assert str(self.item_chair['product_code']) in self.inventory_string
+        assert str(self.item_chair['description']) in self.inventory_string
+        assert str(self.item_chair['market_price']) in self.inventory_string
+        assert str(self.item_chair['rental_price']) in self.inventory_string
 
     def test_integration_microwave(self):
         """Integration test for microwave electrical applicance
@@ -89,18 +84,12 @@ class IntegrationTests(TestCase):
         Verifies that all microwave related data is present.
 
         """
-        self.assertIn(str(self.item_microwave['product_code']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_microwave['description']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_microwave['market_price']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_microwave['rental_price']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_microwave['brand']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_microwave['voltage']),
-                      self.inventory_string)
+        assert str(self.item_microwave['product_code']) in self.inventory_string
+        assert str(self.item_microwave['description']) in self.inventory_string
+        assert str(self.item_microwave['market_price']) in self.inventory_string
+        assert str(self.item_microwave['rental_price'])in self.inventory_string
+        assert str(self.item_microwave['brand']) in self.inventory_string
+        assert str(self.item_microwave['voltage']) in self.inventory_string
 
     def test_integration_sofa(self):
         """Integration test for sofa furniture
@@ -108,18 +97,12 @@ class IntegrationTests(TestCase):
         Verifies that all sofa related data is present.
 
         """
-        self.assertIn(str(self.item_sofa['product_code']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_sofa['description']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_sofa['market_price']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_sofa['rental_price']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_sofa['material']),
-                      self.inventory_string)
-        self.assertIn(str(self.item_sofa['size']),
-                      self.inventory_string)
+        assert str(self.item_sofa['product_code']) in self.inventory_string
+        assert str(self.item_sofa['description']) in self.inventory_string
+        assert str(self.item_sofa['market_price']) in self.inventory_string
+        assert str(self.item_sofa['rental_price']) in self.inventory_string
+        assert str(self.item_sofa['material']) in self.inventory_string
+        assert str(self.item_sofa['size']) in self.inventory_string
 
     def test_full_string(self):
         """Integration test
@@ -162,9 +145,4 @@ class IntegrationTests(TestCase):
         self.inventory_string = self.inventory_string.replace(
             str(self.item_sofa['size']), '')
 
-        self.assertEqual(self.inventory_string, '')
-
-
-if __name__ == '__main__':
-
-    unittest.main()
+        assert self.inventory_string == ''

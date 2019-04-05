@@ -13,7 +13,6 @@ Notes on assignment:
 
 I had wanted to do this using pytest but ran into trouble
 trying to monkeypatch inputs and found it to be easier
-using unittest mock and side effects.  For the sake of
-grading, the tests in ./unittests/ are completed and
-functional.  The tests in ./pytests/ are a work in
-progress.
+using unittest mock and side effects.  Both test suites
+are running the same tests, however unittest also tests 
+main.py, where as pytest does not. 
