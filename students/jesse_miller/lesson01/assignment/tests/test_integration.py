@@ -121,7 +121,7 @@ class MainMenuTests(TestCase):
             sys.stdout = text_trap
             user_input = ['123', 'Testing', '123.45', '12.34', 'N', 'N']
             with patch('builtins.input', side_effect=user_input):
-                test_dict = add_new_item()
+                test_dict = add_new_item(test_dict)
         user_input = ["2"]
         with patch('builtins.input', side_effect=user_input):
             function = main_menu()
@@ -135,6 +135,7 @@ class MainMenuTests(TestCase):
 
     def test_input_add(self):
         test_dict = {}
+        test_dict_main = self.test_dict_main
         text_trap = io.StringIO()
         sys.stdout = text_trap
         user_input = ['123', 'Testing', '123.45', '12.34', 'N', 'N']
@@ -143,26 +144,3 @@ class MainMenuTests(TestCase):
         sys.stdout = sys.__stdout__
 #        return test_dict
         self.assertEqual(test_dict, self.test_dict_main)
-
-    def test_input_furn(self):
-        test_dict = {}
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-        user_input = ['12345', 'Testing', '123.45', '12.34', 'Y', 'Fur', 'S']
-        with patch('builtins.input', side_effect=user_input):
-            test_dict = add_new_item()
-        sys.stdout = sys.__stdout__
-#        return test_dict
-        self.assertEqual(test_dict, self.test_dict_furn)
-
-    def test_input_elec(self):
-        test_dict = {}
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-        user_input = ['1234', 'Testing', '123.45', '12.34', 'N', 'Y', \
-                      'Testing, Inc', '123.4']
-        with patch('builtins.input', side_effect=user_input):
-            test_dict = add_new_item()
-        sys.stdout = sys.__stdout__
-#        return test_dict
-        self.assertEqual(test_dict, self.test_dict_furn)
