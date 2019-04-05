@@ -34,7 +34,6 @@ def get_price(item_code):
 
 def add_new_item():
     """ Add a new item to the inventory """
-    # global FULL_INVENTORY
     item_code = input("Enter item code: ")
     item_description = input("Enter item description: ")
     item_rental_price = input("Enter item rental price: ")

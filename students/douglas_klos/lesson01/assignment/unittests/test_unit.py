@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Pytest cases for inventory management classes """
+""" Unittest cases for inventory management classes """
 
 # Douglas Klos
 # April 4th, 2019
@@ -63,29 +63,36 @@ class MainTests(TestCase):
         self.assertEqual(get_price(-100), -100)
         self.assertEqual(get_price(-1000), -1000)
 
-    def test_new_item_inventory(self):
+    # We were getting too many nested patch statements for 80 char
+    #   So we're implementing some of the patching with decorators.
+    @patch('inventory_management.' +
+           'market_prices.get_latest_price', return_value=388)
+    @patch('inventory_management.inventory_class.Inventory')
+    def test_new_item_inventory(self, mock_inventory, mock_price):
         """ Tests adding a new item of type Inventory """
         product_code = 100
         description = 'Chair'
         market_price = 388
         rental_price = 50
-
         user_input = [product_code, description, rental_price, 'n', 'n']
 
-        with patch('builtins.input', side_effect=user_input):
-            with patch('inventory_management.market_prices.get_latest_price',
-                       return_value=market_price) as price_mock_helper:
-                with patch('inventory_management.inventory_class.Inventory')\
-                        as inventory_mock_helper:
-                    add_new_item()
-                    price_mock_helper.assert_called_once_with(product_code)
-                    inventory_mock_helper.assert_called_once_with(product_code,
-                                                                  description,
-                                                                  market_price,
-                                                                  rental_price)
-                    self.assertIn(product_code, FULL_INVENTORY)
+        with captured_output() as out:
+            with patch('builtins.input', side_effect=user_input):
 
-    def test_new_item_furniture(self):
+                add_new_item()
+                mock_price.assert_called_once_with(product_code)
+                mock_inventory.assert_called_once_with(product_code,
+                                                       description,
+                                                       market_price,
+                                                       rental_price)
+                output = out.getvalue()
+                self.assertIn("New inventory item added", output)
+                self.assertIn(product_code, FULL_INVENTORY)
+
+    @patch('inventory_management.' +
+           'market_prices.get_latest_price', return_value=388)
+    @patch('inventory_management.furniture_class.Furniture')
+    def test_new_item_furniture(self, mock_furniture, mock_price):
         """ Tests adding a new item of type Furniture """
         product_code = 100
         description = 'Chair'
@@ -93,26 +100,27 @@ class MainTests(TestCase):
         rental_price = 50
         material = 'Leather'
         size = 'L'
-
         user_input = [product_code, description, rental_price,
                       'y', material, size]
 
-        with patch('builtins.input', side_effect=user_input):
-            with patch('inventory_management.market_prices.get_latest_price',
-                       return_value=market_price) as price_mock_helper:
-                with patch('inventory_management.furniture_class.Furniture')\
-                        as elec_app_mock_helper:
-                    add_new_item()
-                    price_mock_helper.assert_called_once_with(product_code)
-                    elec_app_mock_helper.assert_called_once_with(product_code,
-                                                                 description,
-                                                                 market_price,
-                                                                 rental_price,
-                                                                 material,
-                                                                 size)
-                    self.assertIn(product_code, FULL_INVENTORY)
+        with captured_output() as out:
+            with patch('builtins.input', side_effect=user_input):
+                add_new_item()
+                mock_price.assert_called_once_with(product_code)
+                mock_furniture.assert_called_once_with(product_code,
+                                                       description,
+                                                       market_price,
+                                                       rental_price,
+                                                       material,
+                                                       size)
+                output = out.getvalue()
+                self.assertIn("New inventory item added", output)
+                self.assertIn(product_code, FULL_INVENTORY)
 
-    def test_new_item_electric_app(self):
+    @patch('inventory_management.' +
+           'market_prices.get_latest_price', return_value=388)
+    @patch('inventory_management.electric_appliances_class.ElectricAppliances')
+    def test_new_item_electric_app(self, mock_elec_app, mock_price):
         """ Tests adding a new item of type ElectricAppliance """
         product_code = 100
         description = 'Oven'
@@ -120,24 +128,22 @@ class MainTests(TestCase):
         rental_price = 50
         brand = 'Samsung'
         voltage = 230
-
         user_input = [product_code, description, rental_price,
                       'n', 'y', brand, voltage]
 
-        with patch('builtins.input', side_effect=user_input):
-            with patch('inventory_management.market_prices.get_latest_price',
-                       return_value=market_price) as price_mock_helper:
-                with patch('inventory_management.electric_appliances_class' +
-                           '.ElectricAppliances') as elec_app_mock_helper:
-                    add_new_item()
-                    price_mock_helper.assert_called_once_with(product_code)
-                    elec_app_mock_helper.assert_called_once_with(product_code,
-                                                                 description,
-                                                                 market_price,
-                                                                 rental_price,
-                                                                 brand,
-                                                                 voltage)
-                    self.assertIn(product_code, FULL_INVENTORY)
+        with captured_output() as out:
+            with patch('builtins.input', side_effect=user_input):
+                add_new_item()
+                mock_price.assert_called_once_with(product_code)
+                mock_elec_app.assert_called_once_with(product_code,
+                                                      description,
+                                                      market_price,
+                                                      rental_price,
+                                                      brand,
+                                                      voltage)
+                output = out.getvalue()
+                self.assertIn("New inventory item added", output)
+                self.assertIn(product_code, FULL_INVENTORY)
 
     def test_item_info(self):
         """ Tests that item_info returns expected values """
@@ -152,7 +158,6 @@ class MainTests(TestCase):
 
         user_input = ['100']
         with patch('builtins.input', side_effect=user_input):
-            # with captured_output() as (out, err):
             with captured_output() as out:
                 item_info()
         output = out.getvalue()
