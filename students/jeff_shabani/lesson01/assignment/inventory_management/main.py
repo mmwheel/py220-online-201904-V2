@@ -4,7 +4,9 @@ Launches the user interface for the inventory management system
 import sys
 
 
-from students.jeff_shabani.lesson01.assignment.inventory_management import *
+from electricappliancesclass import ElectricAppliances
+from furnitureclass import Furniture
+from inventoryclass import Inventory
 
 
 FULLINVENTORY = dict()
