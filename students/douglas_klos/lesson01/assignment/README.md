@@ -8,9 +8,10 @@ identical tests.  Both sets of test cover 100% of the inventory management code
 and 92% of the main code, missing only the if name is main section.
 
 Following are the commands I would execute for testing.
-All commands are run from the root project folder ()./assignment/)
+All commands are run from the root project folder (./assignment/)
 Pylint returns 10/10 for all code, tests included, using included pylintrc
 
+```
 pytest --cov=./inventory_management ./pytests
 pytest --cov=main ./pytests
 
@@ -23,6 +24,8 @@ pylint pytests/
 pylint unittests/
 pylint inventory_management/
 pylint main
+```
+
 
 
 Grading
