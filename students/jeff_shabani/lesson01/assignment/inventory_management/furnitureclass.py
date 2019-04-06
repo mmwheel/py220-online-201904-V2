@@ -1,7 +1,7 @@
 """
 Furniture class module"""
 
-from inventoryclass import Inventory
+from students.jeff_shabani.lesson01.assignment.inventory_management.inventoryclass import *
 
 
 class Furniture(Inventory):
