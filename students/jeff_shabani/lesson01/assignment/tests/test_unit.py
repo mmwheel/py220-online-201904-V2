@@ -7,7 +7,9 @@ import unittest
 
 
 from io import StringIO
-from students.jeff_shabani.lesson01.assignment.inventory_management import *
+from students.jeff_shabani.lesson01.assignment.inventory_management.electricappliancesclass import ElectricAppliances
+from students.jeff_shabani.lesson01.assignment.inventory_management.furnitureclass import Furniture
+from students.jeff_shabani.lesson01.assignment.inventory_management.inventoryclass import Inventory
 from pathlib import Path
 from unittest.mock import patch
 from unittest.mock import MagicMock
