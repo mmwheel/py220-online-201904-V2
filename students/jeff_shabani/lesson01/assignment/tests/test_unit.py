@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
 
-import mock
+from changedirectory import changedirectory
+
+changedirectory()
+
 import os
+import mock
 import platform
 import unittest
 
-
-from io import StringIO
-from students.jeff_shabani.lesson01.assignment.inventory_management.electricappliancesclass import ElectricAppliances
-from students.jeff_shabani.lesson01.assignment.inventory_management.furnitureclass import Furniture
-from students.jeff_shabani.lesson01.assignment.inventory_management.inventoryclass import Inventory
-from students.jeff_shabani.lesson01.assignment.inventory_management.main import *
 from pathlib import Path
+from io import StringIO
+from electricappliancesclass import ElectricAppliances
+from furnitureclass import Furniture
+from inventoryclass import Inventory
+from main import *
+
 from unittest.mock import patch
 from unittest.mock import MagicMock
+
 
 APPLIANCE = {'productcode': 'F100',
              'description': 'Freezer',
@@ -77,6 +82,10 @@ class TestInventoryManagement(unittest.TestCase):
         del self.appliance
         del self.furniture
         del self.inventory
+
+
+if __name__ == '__main__':
+    unittest.main()
 
 
 
