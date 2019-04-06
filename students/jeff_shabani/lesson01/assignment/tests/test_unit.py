@@ -7,7 +7,7 @@ import unittest
 
 
 from io import StringIO
-from inventory_management import *
+from students.jeff_shabani.lesson01.assignment.inventory_management import *
 from pathlib import Path
 from unittest.mock import patch
 from unittest.mock import MagicMock
