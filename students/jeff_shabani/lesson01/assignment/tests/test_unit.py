@@ -79,6 +79,12 @@ class MarketPricesTests(TestCase):
 
 class MenuTests(TestCase):
 
+    # def test_main_menu(self):
+    #     with patch('sys.stdout', new=StringIO()) as mocked_output:
+    #         mainmenu()
+    #         self.assertEqual(mocked_output.getvalue().strip(), f'Karsten Willems\nSammy Maudlin')
+
+
     def test_main_menu_add_new(self):
         """
         Tests for menu item 1 selection"""

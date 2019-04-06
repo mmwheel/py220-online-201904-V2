@@ -94,7 +94,6 @@ def exitprogram():
 
 
 if __name__ == '__main__':
-    # fullinventory = {}
     while True:
         print(FULLINVENTORY)
         mainmenu()()
