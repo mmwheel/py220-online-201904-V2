@@ -10,6 +10,7 @@ from io import StringIO
 from students.jeff_shabani.lesson01.assignment.inventory_management.electricappliancesclass import ElectricAppliances
 from students.jeff_shabani.lesson01.assignment.inventory_management.furnitureclass import Furniture
 from students.jeff_shabani.lesson01.assignment.inventory_management.inventoryclass import Inventory
+from students.jeff_shabani.lesson01.assignment.inventory_management.main import *
 from pathlib import Path
 from unittest.mock import patch
 from unittest.mock import MagicMock
@@ -62,12 +63,14 @@ class TestInventoryManagement(unittest.TestCase):
         expected = recliner.returnasdictionary()
         self.assertDictEqual(CHAIR, expected)
 
-    # def test_program_quit(self):
-    #     """Test that the program quits properly"""
-    #     d = mainmenu()
-    #     with self.assertRaises(SystemExit):
-    #         d.exitprogram()
-    #     del d
+    @mock.patch('builtins.input', mock.Mock(return_value='q'))
+    def test_program_quit(self):
+        """Test that the program quits properly"""
+        d = mainmenu()
+        with self.assertRaises(SystemExit):
+            d = exitprogram()
+
+        del d
 
 
     def tearDown(self):
