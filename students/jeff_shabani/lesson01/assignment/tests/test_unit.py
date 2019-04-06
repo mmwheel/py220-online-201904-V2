@@ -7,11 +7,9 @@ import unittest
 
 
 from io import StringIO
-# from lesson01.assignment.inventory_management.electricappliancesclass import *
-# from lesson01.assignment.inventory_management.furnitureclass import *
-# from lesson01.assignment.inventory_management.inventoryclass import *
-# from lesson01.assignment.inventory_management.market_prices import get_latest_price
+from inventory_management.main import *
 from assignment.inventory_management.main import *
+from  main import *
 from pathlib import Path
 from unittest.mock import patch
 from unittest.mock import MagicMock
