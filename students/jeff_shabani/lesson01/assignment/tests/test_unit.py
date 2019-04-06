@@ -64,12 +64,12 @@ class TestInventoryManagement(unittest.TestCase):
         expected = recliner.returnasdictionary()
         self.assertDictEqual(CHAIR, expected)
 
-    def test_program_quit(self):
-        """Test that the program quits properly"""
-        d = mainmenu()
-        with self.assertRaises(SystemExit):
-            d.exitprogram()
-        del d
+    # def test_program_quit(self):
+    #     """Test that the program quits properly"""
+    #     d = mainmenu()
+    #     with self.assertRaises(SystemExit):
+    #         d.exitprogram()
+    #     del d
 
 
     def tearDown(self):
