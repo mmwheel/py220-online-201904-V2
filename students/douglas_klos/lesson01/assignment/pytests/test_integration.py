@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #pylint: disable=W0201
 """Pytest cases for integration testing"""
 

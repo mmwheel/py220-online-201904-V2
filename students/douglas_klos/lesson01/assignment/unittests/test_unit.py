@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unittest cases for inventory management classes"""
+"""Unittest cases for inventory management module and main"""
 
 # Douglas Klos
 # April 4th, 2019
