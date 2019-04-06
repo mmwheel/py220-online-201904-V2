@@ -17,7 +17,6 @@ import main
 from main import addnewitem, ElectricAppliances, Furniture, Inventory, \
     mainmenu, exitprogram, get_latest_price
 
-from unittest import TestCase
 from unittest.mock import patch
 from unittest.mock import MagicMock
 
@@ -40,44 +39,46 @@ GENERIC_INVETORY = {'productcode': 'AAAA',
                     'marketprice': 1,
                     'rentalprice': 2}
 
+NEW_INVETORY = {'productcode': 'NEW',
+                'description': 'Brand New Item',
+                'marketprice': 1000000,
+                'rentalprice': 2500000}
+
 """The dictionarires above are used to test the functionality
 of the inventory management modules"""
 
 
-class TestElectricAppliance(TestCase):
-    def test_electric_appliance(self):
-        """
-        Test electric appliance dictionary output"""
-        freezer = ElectricAppliances(*APPLIANCE.values())
-        expected = freezer.returnasdictionary()
-        self.assertDictEqual(APPLIANCE, expected)
+class TestInventoryManagement(unittest.TestCase):
 
+    def setUp(self):
+        self.appliance = ElectricAppliances(*APPLIANCE.values())
+        self.furniture = Furniture(*CHAIR.values())
+        self.inventory = Inventory(*GENERIC_INVETORY.values())
 
-class FurnitureTests(TestCase):
-    def test_furniture(self):
-        """
-        Test furniture dictionary output"""
-        recliner = Furniture(*CHAIR.values())
-        expected = recliner.returnasdictionary()
-        self.assertDictEqual(CHAIR, expected)
-
-
-class InventoryTests(TestCase):
     def test_generic_inventory(self):
         """
         Test electric appliance dictionary output"""
-        item = Inventory(*GENERIC_INVETORY.values())
+        item = self.inventory
         expected = item.returnasdictionary()
         self.assertDictEqual(GENERIC_INVETORY, expected)
 
+    def test_electric_appliance(self):
+        """
+        Test electric appliance dictionary output"""
+        freezer = self.appliance
+        expected = freezer.returnasdictionary()
+        self.assertDictEqual(APPLIANCE, expected)
 
-class MarketPricesTests(TestCase):
+    def test_furniture(self):
+        """
+        Test furniture dictionary output"""
+        recliner = self.furniture
+        expected = recliner.returnasdictionary()
+        self.assertDictEqual(CHAIR, expected)
+
     def test_get_market_price(self):
         """Test that get market price returns 24"""
         self.assertEqual(24, get_latest_price('placeholder'))
-
-
-class MenuTests(TestCase):
 
     def test_main_menu_add_new(self):
         """
@@ -105,6 +106,13 @@ class MenuTests(TestCase):
         Test that the program quits properly"""
         with self.assertRaises(SystemExit):
             main.exitprogram()
+
+    def tearDown(self):
+        """
+        Tears down setup items"""
+        del self.appliance
+        del self.furniture
+        del self.inventory
 
 
 if __name__ == '__main__':
