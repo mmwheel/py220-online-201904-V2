@@ -7,6 +7,7 @@ import sys
 from electricappliancesclass import ElectricAppliances
 from furnitureclass import Furniture
 from inventoryclass import Inventory
+from market_prices import get_latest_price
 
 
 FULLINVENTORY = dict()
@@ -34,6 +35,8 @@ def getprice():
     function to get price"""
 
     print("Get price")
+    latest_price = get_latest_price(item_code)
+    return latest_price
 
 
 def addnewitem():
