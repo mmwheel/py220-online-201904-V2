@@ -67,8 +67,8 @@ def add_new_item():
         else:
             new_item = Inventory(item_code, item_description,
                                  item_price, item_rental_price)
-            FULL_INVENTORY[item_code] = new_item.return_as_dict()
-            print("New Inventory item added")
+        FULL_INVENTORY[item_code] = new_item.return_as_dict()
+        print("New Inventory item added")
 
 def add_new_furnature(item_code, item_description, item_rental_price,
                       item_price):
