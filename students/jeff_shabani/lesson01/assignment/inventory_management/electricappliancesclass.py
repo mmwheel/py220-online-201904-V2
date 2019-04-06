@@ -1,7 +1,7 @@
 """
 Electric appliances module"""
 
-from inventoryclass import *
+from inventoryclass import Inventory
 
 
 class ElectricAppliances(Inventory):

@@ -1,7 +1,7 @@
 """
 Furniture class module"""
 
-from inventoryclass import *
+from inventoryclass import Inventory
 
 
 class Furniture(Inventory):
