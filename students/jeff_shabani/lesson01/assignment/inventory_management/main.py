@@ -3,12 +3,13 @@ Launches the user interface for the inventory management system
 """
 import sys
 
-from lesson01.assignment.inventory_management.electricappliancesclass \
-    import ElectricAppliances
-from lesson01.assignment.inventory_management.furnitureclass import Furniture
-from lesson01.assignment.inventory_management.inventoryclass import Inventory
-from lesson01.assignment.inventory_management.market_prices import \
-    get_latest_price
+from inventory_management import *
+# from lesson01.assignment.inventory_management.electricappliancesclass \
+#     import ElectricAppliances
+# from lesson01.assignment.inventory_management.furnitureclass import Furniture
+# from lesson01.assignment.inventory_management.inventoryclass import Inventory
+# from lesson01.assignment.inventory_management.market_prices import \
+#     get_latest_price
 
 FULLINVENTORY = dict()
 
