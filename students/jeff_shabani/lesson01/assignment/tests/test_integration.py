@@ -1,119 +1,88 @@
 #!/usr/bin/env python3
 
+"""
+this function is necessary to change the working directory
+to inventory management.
+"""
+
 from changedirectory import changedirectory
 
 changedirectory()
 
-import os
+from unittest import TestCase
+from unittest.mock import MagicMock, patch
+
+import pytest
+import electricappliancesclass
+import furnitureclass
+import inventoryclass
 import market_prices
-import mock
-import platform
-import unittest
-
-from pathlib import Path
-from io import StringIO
-
-import main
-from main import addnewitem, ElectricAppliances, Furniture, Inventory, \
-    mainmenu, exitprogram, get_latest_price
-
-from unittest.mock import patch
-from unittest.mock import MagicMock
-
-APPLIANCE = {'productcode': 'F100',
-             'description': 'Freezer',
-             'marketprice': 300,
-             'rentalprice': 400,
-             'brand': 'GE',
-             'voltage': 200}
-
-CHAIR = {'productcode': 'C100',
-         'description': 'Recliner',
-         'marketprice': 900,
-         'rentalprice': 1200,
-         'material': 'leather',
-         'size': 'large'}
-
-GENERIC_INVETORY = {'productcode': 'AAAA',
-                    'description': 'Object',
-                    'marketprice': 1,
-                    'rentalprice': 2}
-
-NEW_INVETORY = {'productcode': 'NEW',
-                'description': 'Brand New Item',
-                'marketprice': 1000000,
-                'rentalprice': 2500000}
-
-"""The dictionarires above are used to test the functionality
-of the inventory management modules"""
+from main import mainmenu
 
 
-class TestInventoryManagement(unittest.TestCase):
+class MainMenuTests(TestCase):
+    """
+    Full test of inventory management main module. Tests
+    user input and returned results.
+    """
 
-    def setUp(self):
-        self.appliance = ElectricAppliances(*APPLIANCE.values())
-        self.furniture = Furniture(*CHAIR.values())
-        self.inventory = Inventory(*GENERIC_INVETORY.values())
+    inv_dict = {'product_code': '111',
+                'description': 'Testing',
+                'market_price': '100',
+                'rental_price': '120'}
 
-    def test_generic_inventory(self):
+    appl_dict = {'product_code': '222',
+                 'description': 'Espressmaschine',
+                 'market_price': '2000',
+                 'rental_price': '2200',
+                 'brand': 'Gaggia',
+                 'voltage': '64'}
+
+    furniture_dict = {'product_code': '333',
+                      'description': 'Recliner',
+                      'market_price': '3000',
+                      'rental_price': '3500',
+                      'material': 'Leder',
+                      'size': 'M'}
+
+    @patch('main.addnewitem', return_value=inv_dict)
+    def test_add_non_appliance_furniture(self, addnewitem):
         """
-        Test electric appliance dictionary output"""
-        item = self.inventory
-        expected = item.returnasdictionary()
-        self.assertDictEqual(GENERIC_INVETORY, expected)
-
-    def test_electric_appliance(self):
+        Tests adding a new item that's neither
+        furniture nor appliance.
         """
-        Test electric appliance dictionary output"""
-        freezer = self.appliance
-        expected = freezer.returnasdictionary()
-        self.assertDictEqual(APPLIANCE, expected)
 
-    def test_furniture(self):
+        inv_add = {'product_code': '111',
+                   'description': 'Testing',
+                   'market_price': '100',
+                   'rental_price': '120'}
+        self.assertEqual(addnewitem(), inv_add)
+
+    @patch('main.add_appliance', return_value=appl_dict)
+    def test_add_appliance(self, add_appliance):
         """
-        Test furniture dictionary output"""
-        recliner = self.furniture
-        expected = recliner.returnasdictionary()
-        self.assertDictEqual(CHAIR, expected)
+        Tests adding an appliance"""
 
-    def test_get_market_price(self):
-        """Test that get market price returns 24"""
-        self.assertEqual(24, get_latest_price('placeholder'))
+        appl_add = {'product_code': '222',
+                    'description': 'Espressmaschine',
+                    'market_price': '2000',
+                    'rental_price': '2200',
+                    'brand': 'Gaggia',
+                    'voltage': '64'}
+        self.assertEqual(add_appliance(), appl_add)
 
-    def test_main_menu_add_new(self):
+    @patch('main.add_furniture', return_value=furniture_dict)
+    def test_add_furniture(self, add_furniture):
         """
-        Tests for menu item 1 selection"""
-        while True:
-            try:
-                with patch('builtins.input', side_effect='1'):
-                    self.assertEqual(mainmenu(), main.addnewitem())
-            except StopIteration as error:
-                return error
+        Tests adding peice of furniture"""
 
-    def test_main_get_item_info(self):
-        """
-        Tests for item menu 2 selection"""
-        while True:
-            try:
-                with patch('builtins.input', side_effect='2'):
-                    self.assertEqual(mainmenu(), main.addnewitem())
-            except StopIteration as error:
-                return error
-
-    @mock.patch('builtins.input', mock.Mock(return_value='q'))
-    def test_program_quit(self):
-        """
-        Test that the program quits properly"""
-        with self.assertRaises(SystemExit):
-            main.exitprogram()
-
-    def tearDown(self):
-        """
-        Tears down setup items"""
-        del self.appliance
-        del self.furniture
-        del self.inventory
-
+        dict_furn = {'product_code': '333',
+                     'description': 'Recliner',
+                     'market_price': '3000',
+                     'rental_price': '3500',
+                     'material': 'Leder',
+                     'size': 'M'}
+        self.assertEqual(add_furniture(), dict_furn)
 
 if __name__ == '__main__':
     unittest.main()

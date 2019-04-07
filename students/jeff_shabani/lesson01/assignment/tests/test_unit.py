@@ -87,7 +87,7 @@ class MenuTests(TestCase):
         options_str = '({options_str})'
         expected = f'Please choose from the following options {options_str}:\n' \
             f'1. Add a new item to the inventory\n2. Get item ' \
-            f'information\nq. Quit\n>'
+            f'information\nq. Quit'
         with patch('sys.stdout', new=StringIO()) as mocked_output:
             main_menu_for_testing()
             self.assertEqual(mocked_output.getvalue().strip(), expected)
