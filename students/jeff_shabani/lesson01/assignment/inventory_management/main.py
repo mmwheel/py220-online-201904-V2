@@ -32,6 +32,11 @@ def mainmenu(user_prompt=None):
         user_prompt = input(">")
     return valid_prompts.get(user_prompt)
 
+def main_menu_for_testing():
+    """
+    Function used to test main menu console display"""
+    print(PROMPT_TEXT)
+
 
 def getprice():
     """
