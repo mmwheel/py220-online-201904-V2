@@ -103,7 +103,8 @@ def addnewitem():
                                     " (Y/N): ")
         if iselectricappliance.lower() == "y":
             add_appliance(itemcode, itemdescription, itemprice, itemrentalprice)
-    add_non_furniture_nor_appliance(itemcode, itemdescription, itemprice, itemrentalprice)
+    add_non_furniture_nor_appliance(itemcode, itemdescription, itemprice,
+                                    itemrentalprice)
     print("New inventory item added")
 
 
