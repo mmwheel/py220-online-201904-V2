@@ -5,7 +5,6 @@ from changedirectory import changedirectory
 changedirectory()
 
 import os
-import market_prices
 import mock
 import platform
 import unittest
@@ -79,11 +78,13 @@ class MarketPricesTests(TestCase):
 
 class MenuTests(TestCase):
 
-    # def test_main_menu(self):
-    #     with patch('sys.stdout', new=StringIO()) as mocked_output:
-    #         mainmenu()
-    #         self.assertEqual(mocked_output.getvalue().strip(), f'Karsten Willems\nSammy Maudlin')
-
+    def test_main_menu(self):
+        options_str = '({options_str})'
+        out = f'Please choose from the following options {options_str}:\n' \
+            f'1. Add a new item to the inventory\n2. Get item ' \
+            f'information\nq. Quit\n>'
+        test = main.PROMPT_TEXT
+        self.assertEqual(test, out)
 
     def test_main_menu_add_new(self):
         """
