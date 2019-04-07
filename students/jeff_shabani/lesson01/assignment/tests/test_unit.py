@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+this function is necessary to change the working directory
+to inventory management.
+"""
 from changedirectory import changedirectory
 
 changedirectory()
@@ -14,7 +18,7 @@ from io import StringIO
 
 import main
 from main import addnewitem, ElectricAppliances, Furniture, Inventory, \
-    mainmenu, exitprogram, get_latest_price
+    mainmenu, exitprogram, get_latest_price, main_menu_for_testing
 
 from unittest import TestCase
 from unittest.mock import patch
@@ -78,13 +82,15 @@ class MarketPricesTests(TestCase):
 
 class MenuTests(TestCase):
 
-    def test_main_menu(self):
+    def test_main_menu_display(self):
+        """Test console output main menu"""
         options_str = '({options_str})'
-        out = f'Please choose from the following options {options_str}:\n' \
+        expected = f'Please choose from the following options {options_str}:\n' \
             f'1. Add a new item to the inventory\n2. Get item ' \
             f'information\nq. Quit\n>'
-        test = main.PROMPT_TEXT
-        self.assertEqual(test, out)
+        with patch('sys.stdout', new=StringIO()) as mocked_output:
+            main_menu_for_testing()
+            self.assertEqual(mocked_output.getvalue().strip(), expected)
 
     def test_main_menu_add_new(self):
         """
