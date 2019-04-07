@@ -12,20 +12,23 @@ from market_prices import get_latest_price
 
 FULLINVENTORY = dict()
 
+"""
+Moved prompt text here for testing"""
+OPTIONS_STR = '({options_str})'
+PROMPT_TEXT = f'Please choose from the following options {OPTIONS_STR}:\n' \
+    f'1. Add a new item to the inventory\n2. Get item ' \
+    f'information\nq. Quit\n>'
+
+
 def mainmenu(user_prompt=None):
     """
     main menu for program"""
     valid_prompts = {"1": addnewitem,
                      "2": iteminfo,
                      "q": exitprogram}
-    # options = list(valid_prompts.keys())
-
 
     while user_prompt not in valid_prompts:
-        print("Please choose from the following options ({options_str}):")
-        print("1. Add a new item to the inventory")
-        print("2. Get item information")
-        print("q. Quit")
+        print(PROMPT_TEXT)
         user_prompt = input(">")
     return valid_prompts.get(user_prompt)
 
@@ -95,6 +98,5 @@ def exitprogram():
 
 if __name__ == '__main__':
     while True:
-        print(FULLINVENTORY)
         mainmenu()()
         input("Press Enter to continue...........")
